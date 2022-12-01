@@ -5,9 +5,10 @@ import librosa.display
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
+import datetime
 
 #### LOADING THE VOICE DATA FOR VISUALIZATION ###
-walley_sample = "background_sound/110.wav"
+walley_sample = "background_sound/1.wav"
 data, sample_rate = librosa.load(walley_sample)
 
 ##### VISUALIZING WAVE FORM ##
@@ -29,15 +30,14 @@ all_data = []
 
 data_path_dict = {
     0: ["background_sound/" + file_path for file_path in os.listdir("background_sound/")],
-    1: ["audio_data/" + file_path for file_path in os.listdir("audio_data/")]
+    1: ["hotword_sound/" + file_path for file_path in os.listdir("hotword_sound/")]
 }
 
-# the background_sound/ directory has all sounds which DOES NOT CONTAIN wake word
-# the audio_data/ directory has all sound WHICH HAS Wake word
+
 
 for class_label, list_of_files in data_path_dict.items():
-    for single_file in list_of_files:
-        audio, sample_rate = librosa.load(single_file) ## Loading file
+    for file in list_of_files:
+        audio, sample_rate = librosa.load(file) ## Loading file
         mfcc = librosa.feature.mfcc(y=audio, sr=sample_rate, n_mfcc=40) ## Apllying mfcc
         mfcc_processed = np.mean(mfcc.T, axis=0) ## some pre-processing
         all_data.append([mfcc_processed, class_label])
@@ -45,5 +45,5 @@ for class_label, list_of_files in data_path_dict.items():
 
 df = pd.DataFrame(all_data, columns=["feature", "class_label"])
 
-###### SAVING FOR FUTURE USE ###
-df.to_pickle("final_audio_data_csv/audio_data.csv")
+#save timestamped CSV 
+df.to_pickle("processed_data/hot_word_data" + datetime.now().strftime("%d/%m/%y-%H:%M:%S") + ".csv")

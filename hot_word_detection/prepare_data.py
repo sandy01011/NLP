@@ -44,8 +44,8 @@ def record_sound_background(save_path, sample_size=25):
         print(f"Currently on {i+1}/{sample_size}")
 
 #1: Record Hot word
-print("Recording the Wake Word:\n")
-record_audio_and_save("audio_data/", sample_size=100) 
+print("Recording the Hot Word:\n")
+record_audio_and_save("hotword_sound/", sample_size=100) 
 
 #2: Record your background sounds (Just let it run, it will automatically record)
 print("Recording the Background sounds:\n")

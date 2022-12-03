@@ -38,8 +38,11 @@ ax.set_ylim(-60000,60000)
 ax.ser_xlim = (0,CHUNK)
 fig.show()
 
-while 1:
-    data = stream.read(CHUNK)
+#while 1:
+for file in files:
+    wf = wave.open(file_path + file, 'rb')
+    #data = stream.read(CHUNK)
+    data = wf.readframes(CHUNK)
     dataInt = struct.unpack(str(CHUNK) + 'h', data)
     line.set_ydata(dataInt)
     fig.canvas.draw()

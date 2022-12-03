@@ -5,8 +5,8 @@ import matplotlib.pyplot as plt
 import os
 import wave
 
-#CHUNK = 1024 * 2
-CHUNK = 1024
+CHUNK = 1024 * 2
+#CHUNK = 1024
 FORMAT = pa.paInt16
 CHANNELS = 1
 RATE = 44100 # in Hz
